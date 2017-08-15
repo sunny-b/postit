@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170728180049) do
+ActiveRecord::Schema.define(version: 20170815204914) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -30,6 +30,13 @@ ActiveRecord::Schema.define(version: 20170728180049) do
   add_index "comments", ["post_id"], name: "index_comments_on_post_id"
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
+  create_table "post_categories", force: true do |t|
+    t.integer  "post_id"
+    t.integer  "category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "posts", force: true do |t|
     t.string   "url"
     t.string   "title"
@@ -43,8 +50,20 @@ ActiveRecord::Schema.define(version: 20170728180049) do
 
   create_table "users", force: true do |t|
     t.string   "username"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "password_digest"
   end
+
+  create_table "votes", force: true do |t|
+    t.boolean  "vote"
+    t.integer  "user_id"
+    t.string   "voteable_type"
+    t.integer  "voteable_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["voteable_type", "voteable_id"], name: "index_votes_on_voteable_type_and_voteable_id"
 
 end
