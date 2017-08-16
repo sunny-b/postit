@@ -1,14 +1,30 @@
 <% show_post ||= false %>
-
-<div class="well span8">
-  <em>
-    "<%= comment.body %>"
-  </em>
-  <% if show_post %>
-    <span>on <%= link_to comment.post.title, post_path(comment.post) %></span>
-  <% end %>
-  <br>
-  <span class="quiet">by</span>
-  <%= link_to comment.creator.username, user_path(comment.creator) %>
-  <small>at <%= display_datetime(comment.created_at) %></small>
+<div class="row">
+  <div class="span0 well no-line">
+    <% if logged_in? %>
+      <%= link_to votes_post_comment_path(comment.post, comment, vote: true), method: 'post' do %>
+        <i class="icon-arrow-up"></i>
+      <% end %>
+    <% end %>
+    <br>
+    <span class="vote_number"><%= comment.total_votes %> Votes</span>
+    <br>
+    <% if logged_in? %>
+      <%= link_to votes_post_comment_path(comment.post, comment, vote: false), method: 'post' do %>
+        <i class="icon-arrow-down"></i>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="well span8">
+    <em>
+      "<%= comment.body %>"
+    </em>
+    <% if show_post %>
+      <span>on <%= link_to comment.post.title, post_path(comment.post) %></span>
+    <% end %>
+    <br>
+    <span class="quiet">by</span>
+    <%= link_to comment.creator.username, user_path(comment.creator) %>
+    <small>at <%= display_datetime(comment.created_at) %></small>
+  </div>
 </div>

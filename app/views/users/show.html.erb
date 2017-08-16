@@ -20,11 +20,11 @@
 </ul>
 <div class="row">
   <% if params[:tab].nil? %>
-    <% @user.posts.each do |post| %>
+    <% @posts.each do |post| %>
       <%= render 'posts/post', post: post %>
     <% end %>
   <% else %>
-    <% @user.comments.each do |comment| %>
+    <% @comments.each do |comment| %>
       <%= render 'comments/comment', comment: comment, show_post: true %>
     <% end %>
   <% end %>

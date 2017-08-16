@@ -1,4 +1,21 @@
 <div class="row">
+  <div class="span0 well no-line">
+    <% if logged_in? %>
+      <%= link_to votes_post_path(post, vote: true), method: 'post' do %>
+        <i class="icon-arrow-up"></i>
+      <% end %>
+      <br>
+    <% end %>
+    
+    <span class="vote_number"><%= post.total_votes %> Votes</span>
+    
+    <% if logged_in? %>
+      <br>
+      <%= link_to votes_post_path(post, vote: false), method: 'post' do %>
+        <i class="icon-arrow-down"></i>
+      <% end %>
+    <% end %>
+  </div>
   <div class="span8 well">
     <%= render post.categories %>
     <h4><%= link_to post.title, fix_url(post.url) %></h4>
