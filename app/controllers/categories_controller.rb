@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
 
     if @category.save
       flash[:notice] = 'Your Category was created successfully!'
-      redirect_to posts_path
+      redirect_to root_path
     else
       render 'new'
     end
