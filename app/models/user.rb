@@ -11,4 +11,9 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 5 }
 
   sluggable_column :username
+  after_create :set_role
+
+  def set_role
+    self.role = 'user'
+  end
 end
