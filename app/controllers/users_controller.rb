@@ -25,7 +25,7 @@ class UsersController < ApplicationController
         @comments = @user.comments.sort_by { |comment| comment.total_votes}.reverse
       end
 
-      format.json { render json: @user.to_json, except: [:id, :password_digest, :created_at, :updated_at] }
+      format.json { render json: @user, except: [:id, :password_digest, :created_at, :updated_at] }
     end
 
     

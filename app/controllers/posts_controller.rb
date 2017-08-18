@@ -8,7 +8,7 @@ class PostsController < ApplicationController
         @posts = Post.all.sort_by { |post| post.total_votes }.reverse
       end
       
-      format.json { render json: @posts.to_json, except: [:id, :user_id, :created_at, :updated_at] }
+      format.json { render json: @posts, except: [:id, :user_id, :created_at, :updated_at] }
     end
 
     
@@ -21,7 +21,7 @@ class PostsController < ApplicationController
         @comments = @post.comments.sort_by { |comment| comment.total_votes}.reverse
       end
       
-      format.json { render json: @post.to_json, except: [:id, :user_id, :created_at, :updated_at] }
+      format.json { render json: @post, except: [:id, :user_id, :created_at, :updated_at] }
     end
   end
 
