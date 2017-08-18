@@ -3,12 +3,26 @@ class PostsController < ApplicationController
   before_action :require_user, except: [:index, :show]
 
   def index
-    @posts = Post.all.sort_by { |post| post.total_votes }.reverse
+    respond_to do |format|
+      format.html do
+        @posts = Post.all.sort_by { |post| post.total_votes }.reverse
+      end
+      
+      format.json { render json: @posts.to_json, except: [:id, :user_id, :created_at, :updated_at] }
+    end
+
+    
   end
 
   def show
-    @comment = Comment.new
-    @comments = @post.comments.sort_by { |comment| comment.total_votes}.reverse
+    respond_to do |format|
+      format.html do
+        @comment = Comment.new
+        @comments = @post.comments.sort_by { |comment| comment.total_votes}.reverse
+      end
+      
+      format.json { render json: @post.to_json, except: [:id, :user_id, :created_at, :updated_at] }
+    end
   end
 
   def new
