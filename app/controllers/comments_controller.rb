@@ -2,7 +2,8 @@ class CommentsController < ApplicationController
   before_action :require_user
 
   def create
-    @post = Post.find(params[:post_id])
+    @post = Post.find_by(slug: params[:post_id])
+    @comments = @post.comments.sort_by { |comment| comment.total_votes }.reverse
     @comment = @post.comments.build(params.require(:comment).permit(:body))
     @comment.creator = current_user
     
@@ -15,15 +16,27 @@ class CommentsController < ApplicationController
   end
 
   def vote
-    comment = Comment.find(params[:id])
-    vote = Vote.create(vote: params[:vote], creator: current_user, voteable: comment)
+    @comment = Comment.find(params[:id])
+    vote = Vote.create(vote: params[:vote], creator: current_user, voteable: @comment)
 
-    if vote.valid?
-      flash[:notice] = "Your vote counted successfully!"
-    else
-      flash[:error] = "You can only vote for this comment once!"
+    respond_to do |format|
+      format.html do
+        if vote.valid?
+          flash[:notice] = "Your vote counted successfully!"
+        else
+          flash[:error] = "You can only vote for this comment once!"
+        end
+
+        redirect_to :back
+      end
+      
+      format.js do
+        if vote.valid?
+          flash.now[:notice] = "Your vote counted successfully!"
+        else
+          flash.now[:error] = "You can only vote for this comment once!"
+        end
+      end
     end
-
-    redirect_to :back
   end
 end

@@ -1,0 +1,5 @@
+$('.alert').hide();
+$("#comment_<%= @comment.id %>_vote").html("<%= @comment.total_votes %> Votes");
+<% if flash[:error] %>
+  $("#comment_error_<%= @comment.id %>").show();
+<% end %>

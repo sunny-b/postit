@@ -47,6 +47,7 @@ div.comment_votes {
   margin-left: 2px;
 }
 
-.no-line a:hover {
+.no-line a:hover, .no-line a:focus {
   text-decoration: none;
+  outline: none;
 }

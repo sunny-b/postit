@@ -1,17 +1,22 @@
 <div class="row">
+  <div id="post_error_<%= post.slug %>" class="alert alert-error" style="display: none;">
+    <a class="close" data-dismiss="alert">&#215;</a>
+    <div>You can only vote for <%= post.title %> once!</div>
+  </div>
+
   <div class="span0 well no-line">
     <% if logged_in? %>
-      <%= link_to votes_post_path(post, vote: true), method: 'post' do %>
+      <%= link_to votes_post_path(post, vote: true), method: 'post', remote: true do %>
         <i class="icon-arrow-up"></i>
       <% end %>
       <br>
     <% end %>
     
-    <span class="vote_number"><%= post.total_votes %> Votes</span>
+    <span id="post_<%= post.slug %>_vote" class="vote_number"><%= post.total_votes %> Votes</span>
     
     <% if logged_in? %>
       <br>
-      <%= link_to votes_post_path(post, vote: false), method: 'post' do %>
+      <%= link_to votes_post_path(post, vote: false), method: 'post', remote: true do %>
         <i class="icon-arrow-down"></i>
       <% end %>
     <% end %>

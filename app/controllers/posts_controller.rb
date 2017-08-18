@@ -7,7 +7,6 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
     @comment = Comment.new
     @comments = @post.comments.sort_by { |comment| comment.total_votes}.reverse
   end
@@ -43,13 +42,23 @@ class PostsController < ApplicationController
   def vote
     vote = Vote.create(vote: params[:vote], voteable: @post, creator: current_user)
 
-    if vote.valid?
-      flash[:notice] = "Your vote counted successfully!"
-    else
-      flash[:error] = "You can only vote on #{@post.title} once!"
-    end
+    respond_to do |format|
+      format.html do
+        if vote.valid?
+          flash[:notice] = "Your vote was counted successfully!"
+        else
+          flash[:error] = "You can only vote on #{@post.title} once!"
+        end
 
-    redirect_to :back
+        redirect_to :back
+      end
+
+      format.js do
+        unless vote.valid?
+          flash.now[:error] = "You can only vote on #{@post.title} once!"
+        end
+      end
+    end
   end
 
   private
@@ -59,6 +68,6 @@ class PostsController < ApplicationController
   end
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.find_by(slug: params[:id])
   end
 end

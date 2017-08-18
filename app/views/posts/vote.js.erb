@@ -1,0 +1,5 @@
+$('.alert').hide();
+$("#post_<%= @post.slug %>_vote").html("<%= @post.total_votes %> Votes");
+<% if flash[:error] %>
+  $("#post_error_<%= @post.slug %>").show();
+<% end %>
