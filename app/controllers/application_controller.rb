@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def admin?
-    logged_in? && current_user.role == 'admin'
+    logged_in? && current_user.admin?
   end
 
   def creator?(post)
