@@ -31,10 +31,8 @@ class CommentsController < ApplicationController
       end
       
       format.js do
-        if vote.valid?
-          flash.now[:notice] = "Your vote counted successfully!"
-        else
-          flash.now[:error] = "You can only vote for this comment once!"
+        unless vote.valid?
+          flash.now[:error] = true
         end
       end
     end

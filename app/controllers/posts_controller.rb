@@ -55,7 +55,7 @@ class PostsController < ApplicationController
 
       format.js do
         unless vote.valid?
-          flash.now[:error] = "You can only vote on #{@post.title} once!"
+          flash.now[:error] = true
         end
       end
     end
