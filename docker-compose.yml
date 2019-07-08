@@ -3,7 +3,7 @@ version: '2.0'
 services:
   web:
     build: .
-    command: bundle exec rails server -e production
+    command: bundle exec rails server
     ports:
       - '80:3000'
     environment:
@@ -11,6 +11,7 @@ services:
       DATABASE_READ_WRITE_HOST: nyc1-test-enabled-do-user-3561798-0.db.ondigitalocean.com
       DATABASE_READ_WRITE_USERNAME: doadmin
       DATABASE_READ_WRITE_PASSWORD: ppylaqqv6tvq1sar
+      RAILS_ENV: production
     working_dir: /app
     volumes:
       - .:/app
