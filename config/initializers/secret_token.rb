@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-PostitTemplate::Application.config.secret_key_base = 'c3b33ac1dce53c248590d05387eaccc9ed3b370eea7f701dfb9e2e0ac6d1713b8eed49c97a19f1aab50bc96085700cf0834d77c53f42a1435670f8ff69440038'
+PostitTemplate::Application.config.secret_key_base = ENV["SECRET_TOKEN"]
