@@ -4,12 +4,10 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
 development:
-  adapter: postgresql
-  database: defaultdb
-  username: <%= ENV["DATABASE_READ_WRITE_USERNAME"] %>
-  password: <%= ENV["DATABASE_READ_WRITE_PASSWORD"] %>
-  host: <%= ENV["DATABASE_READ_WRITE_HOST"] %>
-  port: 25060
+  adapter: sqlite3
+  database: db/test.sqlite3
+  pool: 5
+  timeout: 500
 
 
 # Warning: The database defined as "test" will be erased and

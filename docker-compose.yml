@@ -3,7 +3,7 @@ version: '2.0'
 services:
   web:
     build: .
-    command: bundle exec rails server
+    command: bundle exec rails server -e production
     ports:
       - '80:3000'
     environment:
