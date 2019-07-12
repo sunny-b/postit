@@ -3,15 +3,11 @@ version: '2.0'
 services:
   web:
     build: .
-    command: bundle exec rails server
+    env_file: .env
     ports:
-      - '80:3000'
-    environment:
-      SECRET_TOKEN: "c3b33ac1dce53c248590d05387eaccc9ed3b370eea7f701dfb9e2e0ac6d1713b8eed49c97a19f1aab50bc96085700cf0834d77c53f42a1435670f8ff69440038"
-      DATABASE_READ_WRITE_HOST: nyc1-test-enabled-do-user-3561798-0.db.ondigitalocean.com
-      DATABASE_READ_WRITE_USERNAME: doadmin
-      DATABASE_READ_WRITE_PASSWORD: ppylaqqv6tvq1sar
-      RAILS_ENV: production
-    working_dir: /app
+      - "80:80"
+      - "443:443"
     volumes:
-      - .:/app
+      - /bundle_cache
+      - /etc/letsencrypt/live/postitapp.tk/fullchain.pem:/etc/letsencrypt/live/postitapp.tk/fullchain.pem
+      - /etc/letsencrypt/live/postitapp.tk/privkey.pem:/etc/letsencrypt/live/postitapp.tk/privkey.pem

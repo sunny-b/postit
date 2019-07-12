@@ -22,5 +22,7 @@ module PostitTemplate
 
     # Tealeaf note: Bootstrap sass gem addition
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+
+    config.logger = Logger.new(STDOUT)
   end
 end
