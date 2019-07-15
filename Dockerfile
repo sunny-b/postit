@@ -25,15 +25,21 @@ ENV BUNDLE_GEMFILE=/home/app/postit/Gemfile \
 
 RUN bundle check || bundle install --without development test
 
-# A minimal copy of what is neccessary to precompile assets.
-# Prevents asset rebuild when all that's changed is model code.
-COPY Rakefile ./
-COPY vendor/assets ./vendor/assets/
-COPY config/ ./config
-COPY app/assets ./app/assets/
+COPY --chown=app:app . .
+
+ARG environment=development
+ARG db_user=root
+ARG db_pass=sekret
+ARG db_host=localhost
+ARG secret_token
+
+ENV RAILS_ENV=${environment}
+ENV RACK_ENV=${environment}
+ENV DB_USER=${db_user}
+ENV DB_PASS=${db_pass}
+ENV DB_HOST=${db_host}
+ENV SECRET_TOKEN=${secret_token}
 
 RUN bundle exec rake assets:precompile
-
-COPY --chown=app:app . .
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
