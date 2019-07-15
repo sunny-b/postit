@@ -6,8 +6,6 @@ PostitTemplate::Application.routes.draw do
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
 
-  post '/webhooks/github', to: 'github_webhooks#deploy'
-
   resources :posts, except: :destroy do
     member do
       post 'votes', to: :vote
