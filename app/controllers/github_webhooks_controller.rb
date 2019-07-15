@@ -1,3 +1,3 @@
-class GithubWebhooksController << ApplicationController
+class GithubWebhooksController < ApplicationController
   def deploy; end
 end
