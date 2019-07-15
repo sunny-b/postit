@@ -1,9 +1,15 @@
-version: '2.0'
+version: '3.0'
 
 services:
   web:
-    build: .
-    env_file: .env
+    build:
+      context: .
+      args:
+        db_user: "${DB_USER}"
+        db_pass: "${DB_PASS}"
+        db_host: "${DB_HOST}"
+        secret_token: "${SECRET_TOKEN}"
+        environment: "${ENVIRONMENT}"
     ports:
       - "80:80"
       - "443:443"

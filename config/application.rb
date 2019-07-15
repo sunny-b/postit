@@ -26,3 +26,9 @@ module PostitTemplate
     config.logger = Logger.new(STDOUT)
   end
 end
+
+secrets = YAML.load(ERB.new(File.read(File.expand_path("../secrets.yml", __FILE__))).result)
+database = YAML.load(ERB.new(File.read(File.expand_path("../database.yml", __FILE__))).result)
+
+File.open(File.expand_path("../secrets.yml", __FILE__), "w") { |f| f.write (secrets.to_yaml) }
+File.open(File.expand_path("../database.yml", __FILE__), "w") { |f| f.write (database.to_yaml) }
